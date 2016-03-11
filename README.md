@@ -32,9 +32,9 @@ $ chmod +x seevis.py
 
   -h, --help            show this help message and exit
   -v, --version         show program's version number and exit
-  -i,--input dir   run SEEVIS on the supplied directory
-  -f, --file  run the Visualisation of SEEVIS
-  -s [S]                run colour scheme ranging from 1 to 4 (default is 1)
+  -i,--input dir        run SEEVIS on the supplied directory
+  -f, --file            run the Visualisation of SEEVIS
+  -s                    run colour scheme ranging from 1 to 4 (default is 1)
 
 #Usage examples
 $python seevis.py -i img_directory/
