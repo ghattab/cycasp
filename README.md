@@ -28,9 +28,9 @@ $ chmod +x seevis.py
 
 # Run SEEVIS on a folder containing all image files 
 # Formatted by channel : red, green, blue as c2, c3, c4 respectively for every time point
-# Or from a CSV file containing already cells' positions
+$ ./seevis.py -i img_directory/
 
-$ python seevis.py -i img_directory/
+# Or from a CSV file containing features' positions
 $ ./seevis.py -f filename.csv -s 2
 
 #  -h, --help            show this help message and exit
