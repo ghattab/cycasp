@@ -30,17 +30,14 @@ $ chmod +x seevis.py
 # Formatted by channel : red, green, blue as c2, c3, c4 respectively for every time point
 # Or from a CSV file containing already cells' positions
 
-  -h, --help            show this help message and exit
-  -v, --version         show program's version number and exit
-  -i,--input dir        run SEEVIS on the supplied directory
-  -f, --file            run the Visualisation of SEEVIS
-  -s                    run colour scheme ranging from 1 to 4 (default is 1)
+$ python seevis.py -i img_directory/
+$ ./seevis.py -f filename.csv -s 2
 
-#Usage examples
-$python seevis.py -i img_directory/
-$./seevis.py -f filename.csv -s 2
-            
-
+#  -h, --help            show this help message and exit
+#  -v, --version         show program's version number and exit
+#  -i, --input           run SEEVIS on the supplied directory
+#  -f, --file            run the Visualisation of SEEVIS
+#  -s                    run colour scheme ranging from 1 to 4 (default is 1)
 ```
 
 ## License
