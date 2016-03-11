@@ -1,4 +1,4 @@
-# SEEVIS, SEEVIS, (S)egmentation-Fr(EE) (VIS)ualisation
+# SEEVIS, (S)egmentation-Fr(EE) (VIS)ualisation
 
 A data driven and segmentation-free approach to visualise cell positions' lineage tree. 
 This work was funded by the German-Canadian DFG International Research Training Group GRK 1906/1 and the “Phenotypic Heterogeneity and Sociobiology of Bacterial Populations” DFG SPP1617.
