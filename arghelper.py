@@ -9,13 +9,6 @@ def inputfile(path):
         raise argparse.ArgumentTypeError('argument filename must be of type *.csv')
     return path
 
-#def inputdirectory(arg): # (parser, arg)
-#    if not os.path.isdir(arg):
-#        parser.error('The directory {} does not exist!'.format(arg))
-#    else:
-#        # File exists so return the directory
-#        return arg
-
 def check_range(arg):
     try:
         value = int(arg)
