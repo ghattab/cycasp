@@ -77,9 +77,9 @@ Usage examples:
                 print 'Input directory', args.input
                 print 'Chosen scheme', args.s
                 st = time.time()
-                preprocess(args.input)
+                outdir = preprocess(args.input)
                 elapsed_time(st)
-                d = get_data()
+                d = get_data(outdir)
                 elapsed_time(st)
                 visualise(d, args.s)
                 elapsed_time(st)
