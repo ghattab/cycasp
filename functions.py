@@ -41,14 +41,17 @@ def preprocess(idir):
     rgb, ug, uclahe, ctrast, \
     dblur, mblur, tmask, res = approach(red, blue, green)
     # default export
-    out = [res]; dirs = ["seevis_output"]
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    outdir = timestr+"seevis_output"
+    out = [res]; dirs = [outdir]
     export(f_red, dirs, out)
+    return outdir
 
-def get_data():
+def get_data(outdir):
     ''' Loads the output of the preprocessing steps for feature extraction
         Returns the formatted data
     '''
-    frames = pims.ImageSequence("../seevis_output/*tif")
+    frames = pims.ImageSequence("../"+outdir+"/*tif")
     print frames
 
     # Get features based on f0
@@ -58,16 +61,16 @@ def get_data():
 
     # Link features in time
     search_range=10 # default : 10
-    t = tp.link_df(features, search_range, memory=10)#, neighbor_strategy='KDTree')
+    t = tp.link_df(features, search_range, memory=10)
+    #, neighbor_strategy='KDTree')
 
     # Filter spurious trajectories
     t1 = tp.filter_stubs(t, 10) # if seen in 15 frames
     # Compare the number of particles in the unfiltered and filtered data.
-    print 'Before:', t['particle'].nunique()
-    print 'After:', t1['particle'].nunique()
+    print 'Unique number of particles (Before filtering):', t['particle'].nunique()
+    print '(After):', t1['particle'].nunique()
 
     # export pandas data frame with filename being current date and time
-    import time
     timestr = time.strftime("%Y%m%d-%H%M%S")
 
     file_name = "../features_"+timestr+".csv"
@@ -385,8 +388,6 @@ def rgb_cube(data, pos):
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
     plt.show()
-
-
 
 
 
