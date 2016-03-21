@@ -136,6 +136,7 @@ def get_imlist(path):
             sys.exit(1)
         return f_red, f_green, f_blue
     else:
+        warnings.filterwarnings("ignore")
         print 'Directory contains unsupported files. Please refer to the README file)'
         sys.exit(1)
 
@@ -175,18 +176,74 @@ def reshape_xyz(x, y, z, ld):
         pos.append(t)
     return np.array(pos)
 
+
+def get_contours(image):
+    """ Finds the outer contours of one binary image and returns
+        a shape-approximation of them. 
+        Since we are only looking for outer contours, no object hierarchy exists
+    """
+    (contours, hierarchy) = cv2.findContours(image, \
+                                             mode=cv2.cv.CV_RETR_TREE, \
+                                             method=cv2.cv.CV_CHAIN_APPROX_SIMPLE)
+    return contours
+
+def get_area(contours):
+    ''' Computes the area of all contours using the Green Theorem
+    '''
+    area = []
+    for i in range(len(contours)):
+        area.append(cv2.contourArea(contours[i]))
+    return area
+
+def filter_cnts(contour, area, f0area, val):
+    ''' Filter out all objects based on val% of the 2nd largest contour in f0
+    '''
+    bad_cnts = list(np.array(contour)[np.where(np.array(area) < val*f0area)])
+    return bad_cnts
+
+def invert(img):
+    cimg = np.copy(img)
+    return cv2.bitwise_not(cimg, cimg)
+
+def remove_bad_cnts(bin, bad_cnts, mask):
+    """ Remove bad contours by drawing it on the mask
+        Args :  bin, binary images resulting from preprocessing
+                bad_cnts, contours filtered out as bad
+                mask, initialised before function call
+        Returns img deprived of bad contours
+    """
+    for c in bad_cnts: # loop over the contours
+        cv2.drawContours(mask, [c], -1, 0, -1)
+    tmp = cv2.bitwise_and(invert(255*bin), invert(255*bin), mask=mask)
+    return invert(tmp)
+
+def second_largest(list_of_numbers):
+    ''' Returns the second largest element of a list
+    '''
+    count = 0
+    m1 = m2 = float('-inf')
+    for x in list_of_numbers:
+        count += 1
+        if x > m2:
+            if x >= m1:
+                m1, m2 = x, m1
+            else:
+                m2=x
+    return m2 if count >= 2 else None
+
 def approach(red, blue, green):
     ''' The SEEVIS implementation of the preprocessing steps
         Args    red, blue, green channels
         Returns 8 different variables highlighting the most important steps
     '''
-    rgb, fgray, ug, uclahe, ctrast, dblur, mblur, tmask, res = [], [], [], [], [], [], [], [], []
+    rgb, fgray, ug, uclahe, ctrast, dblur, mblur, tmask, res, res2 = [], [], [], [], [], [], [], [], [], []
     a = red[0]
 
     # Parameters for manipulating image data
     maxIntensity = 255.0 # depends on dtype of image data
     x = np.arange(maxIntensity); phi, theta = 1, 1
     for i in range(len(red)):
+
         # Add up 3C into RGB
         tmp_rgb = red[i] + green[i] + blue[i]
         rgb.append(tmp_rgb)
@@ -203,7 +260,7 @@ def approach(red, blue, green):
         # CLAHE 3x3
         # kernel = np.ones((3,3),np.uint8)
         # cv2.erode(tmp_ug, kernel, iterations = 2)
-        gclahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(1, 1))
+        gclahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(3, 3))
         tmp_uclahe = gclahe.apply(tmp_ug)
         uclahe.append(tmp_uclahe)
         # contrast enhanced picture
@@ -234,7 +291,22 @@ def approach(red, blue, green):
         tmp_res = cv2.bitwise_or(thresh2, tmp_ssignal, mask=mask)
         res.append(tmp_res)
 
-    return rgb, ug, uclahe, ctrast, dblur, mblur, tmask, res
+        # 4. Filter out residual fluorescence
+        ###########################################
+        # Find all contours in ubyte imgs.
+        tmp_cnts = get_contours(tmp_res)
+        # Compute contours area
+        tmp_areas = get_area(tmp_cnts)
+        # Second largest object in first frame
+        if i==0: f0area = second_largest(tmp_areas)
+        # Mask all objects less than X % of the object bearing the max(A) in f0
+        bad_cnts = filter_cnts(tmp_cnts, tmp_areas, f0area, .1)
+        # Mask bad contours for an appropriate evaluation of performance
+        mask = np.ones(a.shape[:2], dtype="uint8") * 255
+        tmp_res2 = remove_bad_cnts(tmp_res, bad_cnts, mask)
+        res2.append(tmp_res2)
+
+    return rgb, ug, uclahe, ctrast, dblur, mblur, tmask, res2
 
 def export(flist, dirs, out):
     ''' Enumerates elements in dirs and formats the filename depending on flist
@@ -245,7 +317,6 @@ def export(flist, dirs, out):
             f = "../"+j[1]+ "/" +j[1].split(" - ")[-1]+ "_" + flist[i].split("/")[-1]
             tmp = out[j[0]][i]
             cv2.imwrite(f, tmp)
-
 
 def get_cmap(N, map):
     ''' Returns a function that maps each index in 0, 1, ... N-1 to a distinct
