@@ -74,13 +74,13 @@ def get_data(outdir):
     # export pandas data frame with filename being current date and time
     timestr = time.strftime("%Y%m%d-%H%M%S")
 
-    file_name = "../features_"+timestr+".csv"; print "Exporting %s" %(file_name)
-    t1.to_csv(file_name, sep='\t', encoding='utf-8')
-
     data = pd.DataFrame({ 'x': t1.x, 'y': t1.y,'z':t1.frame,\
                         'mass':t1.mass, 'size':t1.size, 'ecc':t1.ecc,\
                         'signal':t1.signal, 'ep':t1.ep, 'particle':t1.particle\
                         })
+
+    file_name = "../features_"+timestr+".csv"; print "Exporting %s" %(file_name)
+    data.to_csv(file_name, sep='\t', encoding='utf-8')
     return data
 
 def visualise(data, s):
@@ -405,7 +405,7 @@ def mkQApp():
 
 def load_data(path):
     data = pd.read_csv(path, index_col=0, parse_dates=True, sep='\t')
-    data = pd.DataFrame({ 'x': data.x, 'y': data.y,'z':data.frame,\
+    data = pd.DataFrame({ 'x': data.x, 'y': data.y,'z':data.z,\
                         'mass':data.mass, 'size':data.size, 'data':data.ecc,\
                         'signal':data.signal, 'ep':data.ep, 'particle':data.particle\
                         })
@@ -460,5 +460,6 @@ def rgb_cube(data, pos):
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
     plt.show()
+
 
 
