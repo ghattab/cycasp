@@ -30,8 +30,9 @@ def preprocess(idir):
     '''
     # load imgs
     f_red, f_green, f_blue = get_imlist(idir)
+    print "\n%d files found\t" %(len(f_red)*3)
+    print "Loading data..."
     red, size_var = load_img(f_red)
-    print "Loading data...\n%d files found\t" %(len(f_red)*3)
     # 1st frame properties (rows, cols)/(height, width)
     rows, cols, channels = size_var.shape
     print "Image size ", size_var.shape
@@ -73,8 +74,8 @@ def get_data(outdir):
     # export pandas data frame with filename being current date and time
     timestr = time.strftime("%Y%m%d-%H%M%S")
 
-    file_name = "../features_"+timestr+".csv"
-    t.to_csv(file_name, sep='\t', encoding='utf-8')
+    file_name = "../features_"+timestr+".csv"; print "Exporting %s" %(file_name)
+    t1.to_csv(file_name, sep='\t', encoding='utf-8')
 
     data = pd.DataFrame({ 'x': t1.x, 'y': t1.y,'z':t1.frame,\
                         'mass':t1.mass, 'size':t1.size, 'ecc':t1.ecc,\
@@ -238,7 +239,7 @@ def approach(red, blue, green):
     '''
     rgb, fgray, ug, uclahe, ctrast, dblur, mblur, tmask, res, res2 = [], [], [], [], [], [], [], [], [], []
     a = red[0]
-
+    print "Preprocessing images..."
     # Parameters for manipulating image data
     maxIntensity = 255.0 # depends on dtype of image data
     x = np.arange(maxIntensity); phi, theta = 1, 1
@@ -459,6 +460,5 @@ def rgb_cube(data, pos):
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
     plt.show()
-
 
 
