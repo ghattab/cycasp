@@ -14,7 +14,7 @@ Schlueter, J. - P., McIntosh, M., Hattab, G., Nattkemper, T. W., and Becker, A. 
 For better reproducibility the versions that were used for development are mentioned in parentheses.
 
 * Python (2.7.10)
-* OpenCV (2.4.9)
+* OpenCV (2.4.12)
 * pyqtgraph (0.9.10)
 * trackpy (u'0.3.0rc1')
 * pims (0.2.2)
