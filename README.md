@@ -1,6 +1,6 @@
 # SEEVIS, (S)egmentation-Fr(EE) (VIS)ualisation
 
-A data driven and segmentation-free approach to extract and visualise cells' positions' lineage tree by using space-time cubes. 
+A data driven and segmentation-free approach to extract and visualise the positions of cells' features as a lineage tree by using space-time cubes. 
 This work was funded by the German-Canadian DFG International Research Training Group GRK 1906/1 and the “Phenotypic Heterogeneity and Sociobiology of Bacterial Populations” DFG SPP1617.
 
 ## Data
