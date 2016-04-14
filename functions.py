@@ -358,7 +358,7 @@ def cycle_colours2(n, data, pos):
     ''' Colour using time axis (data.z) and cmap (spectral: black to white)
     '''
     N = data['z'].nunique()
-    cmap = cm = get_cmap(N, 'spectral')
+    cmap = cm = get_cmap(N, 'nipy_spectral')
     col = []; [col.append(cmap(i)) for i in range(N)]
     # cycle through N (pos[i][2]) time points/colours for all ld coord.
     L = []; [L.append(col[pos[i][2].astype(int)]) for i in xrange(n)]
