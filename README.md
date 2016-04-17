@@ -30,7 +30,7 @@ $ chmod +x seevis.py
 # Formatted by channel : red, green, blue as c2, c3, c4 respectively for every time point
 $ ./seevis.py -i img_directory/
 
-# Or from a CSV file containing features' positions
+# Or on a CSV file containing feature positions
 $ ./seevis.py -f filename.csv -s 2
 
 #  -h, --help            show this help message and exit
