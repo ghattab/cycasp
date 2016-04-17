@@ -1,6 +1,6 @@
 # SEEVIS, (S)egmentation-Fr(EE) (VIS)ualisation
 
-A data driven and segmentation-free approach to extract and visualise the positions of cells' features as a lineage tree by using space-time cubes. 
+A data driven and segmentation-free approach to extract and visualise the feature positions as a lineage tree by using space-time cubes. 
 This work was funded by the German-Canadian DFG International Research Training Group GRK 1906/1 and the “Phenotypic Heterogeneity and Sociobiology of Bacterial Populations” DFG SPP1617.
 
 ## Data
@@ -37,7 +37,7 @@ $ ./seevis.py -f filename.csv -s 2
 #  -v, --version         show program's version number and exit
 #  -i, --input           run SEEVIS on the supplied directory
 #  -f, --file            run the Visualisation of SEEVIS
-#  -s                    run colour scheme ranging from 1 to 4 (default is 1)
+#  -s                    run scheme (or colour coding) ranging from 1 to 4 (default is 1)
 ```
 
 ## License
