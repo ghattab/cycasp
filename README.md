@@ -6,7 +6,6 @@ A biomovie is a temporal series of digital microscopy images that is recorded fo
 1. Nominal colour coding (NCC) highlights single feature trajectories.
 2. Time colour coding (TCC) visually promotes the extent of the population growth over time.
 3. Progeny colour coding (PCC) supports the process of tracing back features to their parents.
-4. Space-Time colour coding (STCC) promotes the colony span, i.e. extent of the biomass, over space and time in an RGB cube.
 
 This work was funded by the German-Canadian DFG International Research Training Group GRK 1906/1 and the “Phenotypic Heterogeneity and Sociobiology of Bacterial Populations” DFG SPP1617.
 
@@ -21,6 +20,7 @@ Schlueter, J. - P., McIntosh, M., Hattab, G., Nattkemper, T. W., and Becker, A. 
 For better reproducibility the versions that were used for development are mentioned in parentheses.
 
 * Python (2.7.11)
+* matplotlib (1.5.1+1759)
 * OpenCV (2.4.12)
 * pyqtgraph (0.9.10)
 * trackpy (u'0.3.0rc1')
