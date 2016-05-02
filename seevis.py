@@ -44,7 +44,7 @@ Usage examples:
                         type=inputfile)
 
     parser.add_argument('-s', \
-                        help='run colour scheme ranging from 1 to 4 (default is 1)',\
+                        help='run colour scheme ranging from 1 to 3 (default is 1)',\
                         nargs="?", default=1, type=check_range)
 
 
