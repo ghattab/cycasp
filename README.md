@@ -1,11 +1,11 @@
 [![DOI](https://zenodo.org/badge/21568/ghattab/SEEVIS.svg)](https://zenodo.org/badge/latestdoi/21568/ghattab/SEEVIS)
 # SEEVIS, (S)egmentation-Fr(EE) (VIS)ualisation
 
-A biomovie is a temporal series of digital microscopy images that is recorded for one selected visual field in a bacterial time course experiment. SEEVIS is a data driven and segmentation-free approach to extract and visualise feature positions from a biomovie as a lineage tree using a space-time cube. The visualisation is coupled with three different colour mapping methods to better appreciate the cell lineage growth. They are titled and functionally described as follows:
+A biomovie is a temporal series of digital microscopy images that is recorded for one selected visual field in a bacterial time course experiment. SEEVIS is a data driven and segmentation-free approach to extract and visualise feature positions from a biomovie as a lineage tree using a space-time cube. The visualisation is coupled with three different colour mapping methods to better appreciate the cell lineage growth. They are based on two colour palettes (Tableau10 and viridis), are titled and functionally described as follows:
 
-1. Nominal colour coding (NCC) highlights single feature trajectories.
-2. Time colour coding (TCC) visually promotes the extent of the population growth over time.
-3. Progeny colour coding (PCC) supports the process of tracing back features to their parents.
+1. Nominal colour coding (NCC) highlights single feature trajectories (Tableau10)
+2. Time colour coding (TCC) visually promotes the extent of the population growth over time (viridis)
+3. Progeny colour coding (PCC) supports the process of tracing back features to their parents (Tableau10).
 
 This work was funded by the German-Canadian DFG International Research Training Group GRK 1906/1 and the “Phenotypic Heterogeneity and Sociobiology of Bacterial Populations” DFG SPP1617.
 
