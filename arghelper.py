@@ -14,8 +14,8 @@ def check_range(arg):
         value = int(arg)
     except ValueError as err:
        raise argparse.ArgumentTypeError(str(err))
-    if value < 0 or value > 4:
-        message = "Expected [1:4], got value = {}".format(value)
+    if value < 1 or value > 3:
+        message = "Expected (1, 2 or 3), got value = {}".format(value)
         raise argparse.ArgumentTypeError(message)
     return value
 
