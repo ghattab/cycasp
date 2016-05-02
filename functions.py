@@ -101,11 +101,9 @@ def visualise(data, s):
     elif s == 2:
         c = cycle_colours2(ld, data, pos)
         display(data, c, size, pos)
-    elif s == 3:
+    else: # s == 3:
         c, data = cycle_colours3(data)
         display(data, c, size, pos)
-    else: # s == 4 (argparse pre-defined range)
-        rgb_cube(data, pos)
 
 def elapsed_time(start_time):
     print("\t--- %4s seconds ---\n" %(time.time()-start_time))
@@ -331,14 +329,22 @@ def get_cmap(N, map):
 
 def cycle_colours(n, data):
     ''' Cycles colours for n particles
-        Returns a numpy array of N, 30 distinct colours cycled for n particles
+        Returns a numpy array of N distinct colours cycled for n particles
         Args    n total unique particles and data, the dataframe
     '''
-    N = 30 # Amount of distinct colours to be used
-    cmap = cm = get_cmap(N, 'hsv')
+    N = 10 # Amount of distinct colours to be used
+    tableau10 = [(31, 119, 180), (255, 127, 14),
+                 (44, 160, 44), (214, 39, 40),
+                 (148, 103, 189), (140, 86, 75),
+                 (227, 119, 194), (127, 127, 127),
+                 (188, 189, 34), (23, 190, 207)]
+    # Scale the RGB values to the [0, 1] range, which is the format matplotlib accepts.
+    for i in range(len(tableau10)):
+        r, g, b = tableau10[i]
+        tableau10[i] = (r / 255., g / 255., b / 255., 1.0)
     col = []
     for i in range(N):
-        col.append(cmap(i))
+        col.append(tableau10[i])
     # Cycle the same distinct 30 colours over the n dis particles
     L = []; [L.extend(col) for i in xrange(n/N)]
     # add the rest to the list to obtain the same n of colours
@@ -354,11 +360,13 @@ def cycle_colours(n, data):
     colours=[]; colours = np.array(T)
     return colours
 
+
+
 def cycle_colours2(n, data, pos):
     ''' Colour using time axis (data.z) and cmap (spectral: black to white)
     '''
     N = data['z'].nunique()
-    cmap = cm = get_cmap(N, 'nipy_spectral')
+    cmap = cm = get_cmap(N, 'viridis')
     col = []; [col.append(cmap(i)) for i in range(N)]
     # cycle through N (pos[i][2]) time points/colours for all ld coord.
     L = []; [L.append(col[pos[i][2].astype(int)]) for i in xrange(n)]
@@ -433,33 +441,6 @@ def display(data, colour, size, pos):
     # center the vis to the first seen feature
     sp.translate(-pos[0][0], -pos[0][1], -pos[0][2])
     w.addItem(sp)
-
-def rgb_cube(data, pos):
-    ''' Displays the features tree mapped into an RGB cube 3D scatterplot using matplotlib
-        Args    data, dataframe
-                pos, given coordinates' positions
-    '''
-    # Silent mode : warnings masked from this point on
-    warnings.filterwarnings("ignore")
-
-    RGBlist = pos.tolist()
-    col = zip(*RGBlist)
-    fig = plt.figure()
-    fig.canvas.set_window_title('SEEVIS - RGB space-time cube')
-    ax = Axes3D(fig)
-    ax.scatter(col[0], col[1], col[2], c=[(r[0]/np.max(data.x), \
-                                         r[1]/np.max(data.y), \
-                                         r[2]/np.max(data.z)) \
-                                         for r in RGBlist])
-    ax.grid(True)
-    # initialise default view
-    for angle in xrange(0, 360, 1):
-        ax.view_init(elev=45., azim=angle)
-    # entitle axes and window
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_zlabel('Z')
-    plt.show()
 
 
 
