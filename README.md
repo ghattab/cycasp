@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/21568/ghattab/SEEVIS.svg)](https://zenodo.org/badge/latestdoi/21568/ghattab/SEEVIS)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.50814.svg)](http://dx.doi.org/10.5281/zenodo.50814)
 # SEEVIS, (S)egmentation-Fr(EE) (VIS)ualisation
 
 A biomovie is a temporal series of digital microscopy images that is recorded for one selected visual field in a bacterial time course experiment. SEEVIS is a data driven and segmentation-free approach to extract and visualise feature positions from a biomovie as a lineage tree using a space-time cube. The visualisation is coupled with three different colour mapping methods to better appreciate the cell lineage growth. They are based on two colour palettes (Tableau10 and viridis), are titled and functionally described as follows:
