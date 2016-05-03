@@ -1,11 +1,14 @@
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.50814.svg)](http://dx.doi.org/10.5281/zenodo.50814)
 # SEEVIS, (S)egmentation-Fr(EE) (VIS)ualisation
 
-A biomovie is a temporal series of digital microscopy images that is recorded for one selected visual field in a bacterial time course experiment. SEEVIS is a data driven and segmentation-free approach to extract and visualise feature positions from a biomovie as a lineage tree using a space-time cube. The visualisation is coupled with three different colour mapping methods to better appreciate the cell lineage growth. They are based on two colour palettes (Tableau10 and viridis), are titled and functionally described as follows:
+A biomovie is a temporal series of digital microscopy images that is recorded for one selected visual field in a bacterial time course experiment. We present SEEVIS, a data driven (S)egmentation-fr(EE) and automatic pipeline of methods to (VIS)ualise the growth patterns of a cell population conveyed in a biomovie. It consists of three steps 1. signal enhancement to help adjust the signal-to-noise ratio, 2. feature detection so as to draw out qualitative information about the colony development, and 3. the visualisation of the colony in a feature space as a 3D space-time cube supported with three appropriate colour coding methods. These codings are based on two colour palettes (```Tableau10``` and ```Viridis```), are titled and functionally described as follows:
 
-1. Nominal colour coding (NCC) highlights single feature trajectories (Tableau10)
-2. Time colour coding (TCC) visually promotes the extent of the population growth over time (viridis)
-3. Progeny colour coding (PCC) supports the process of tracing back features to their parents (Tableau10).
+1. Nominal colour coding (NCC) highlights single feature trajectories (```Tableau10```)
+2. Time colour coding (TCC) visually promotes the extent of the population growth over time (```Viridis```)
+3. Progeny colour coding (PCC) supports the process of tracing back features to their parents (```Tableau10```).
+
+![Result](https://2.bp.blogspot.com/-OqaQtKtbZPo/VykvVJEa4YI/AAAAAAAAHv0/JkJ7kpnkfGAshGRJbA0OynaLXkLIURcpwCLcB/s1600/2.png "SEEVIS result for D1")
+>*SEEVIS colour codings demonstrated for dataset D1. Figure (a) showcases the last frame of the biomovie, as a binary image after signal enhancement. The three colour codings are displayed in the vis: NCC (b), TCC (c), and PCC (d) respectively.*
 
 This work was funded by the German-Canadian DFG International Research Training Group GRK 1906/1 and the “Phenotypic Heterogeneity and Sociobiology of Bacterial Populations” DFG SPP1617.
 
