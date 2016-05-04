@@ -12,7 +12,6 @@ import cv2
 # PyQt and OpenGL
 from pyqtgraph.Qt import QtCore, QtGui
 import pyqtgraph.opengl as gl
-import numpy as np
 
 import pyqtgraph as pg
 pg.setConfigOption('useOpenGL', False)
