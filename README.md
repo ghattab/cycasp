@@ -19,18 +19,7 @@ The synthetic data can be found under ...
 ## Particle diameter estimation
 
 
-## Dependencies
 
-For better reproducibility the versions that were used for development are mentioned in parentheses.
-
-* Python (2.7.11)
-* OpenCV (3.1.0-dev)
-* pyqtgraph (0.9.10)
-* trackpy (u'0.3.0rc1')
-* networkx (1.9.1)
-* Scipy (0.16.0)
-* pandas (0.16.2)
-* json (2.0.9)
 
 ## Usage
 
@@ -56,6 +45,18 @@ $ ./cycasp.py -f filename.csv
 #  -t                    time window for merges (default 10 time points)
 
 ```
+## Dependencies
+
+For better reproducibility the versions that were used for development are mentioned in parentheses.
+
+* Python (2.7.11)
+* OpenCV (3.1.0-dev)
+* pyqtgraph (0.9.10)
+* trackpy (u'0.3.0rc1')
+* networkx (1.9.1)
+* Scipy (0.16.0)
+* pandas (0.16.2)
+* json (2.0.9)
 
 ## License
 ```
