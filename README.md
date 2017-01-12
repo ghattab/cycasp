@@ -1,60 +1,68 @@
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.50814.svg)](http://dx.doi.org/10.5281/zenodo.50814)
-# SEEVIS, (S)egmentation-Fr(EE) (VIS)ualisation
+# CYCASP, ColonY Cell feAture SPace
 
-A biomovie is a temporal series of digital microscopy images that is recorded for one selected visual field in a bacterial time course experiment. We present SEEVIS, a data driven (S)egmentation-fr(EE) and automatic pipeline of methods to (VIS)ualise the growth patterns of a cell population conveyed in a biomovie. It consists of three steps 1. signal enhancement to help adjust the signal-to-noise ratio, 2. feature detection so as to draw out qualitative information about the colony development, and 3. the visualisation of the colony in a feature space as a 3D space-time cube supported with three appropriate colour coding methods. These codings are based on two colour palettes (```Tableau10``` and ```Viridis```), are titled and functionally described as follows:
+abstract
 
-1. Nominal colour coding (NCC) highlights single feature trajectories (```Tableau10```)
-2. Time colour coding (TCC) visually promotes the extent of the population growth over time (```Viridis```)
-3. Progeny colour coding (PCC) supports the process of tracing back features to their parents (```Tableau10```).
-
-![Result](https://2.bp.blogspot.com/-OqaQtKtbZPo/VykvVJEa4YI/AAAAAAAAHv0/JkJ7kpnkfGAshGRJbA0OynaLXkLIURcpwCLcB/s1600/2.png "SEEVIS result for D1")
->*SEEVIS colour codings demonstrated for dataset D1. Figure (a) showcases the last frame of the biomovie, as a binary image after signal enhancement. The three colour codings are displayed in the vis: NCC (b), TCC (c), and PCC (d) respectively.*
-
-This work was funded by the German-Canadian DFG International Research Training Group GRK 1906/1 and the “Phenotypic Heterogeneity and Sociobiology of Bacterial Populations” DFG SPP1617.
+CYCASP comprises three steps:
+1. preprocessing (state of the art image preprocessing methods)
+2. particle (finding, tracking, etc)
+3. patch lineage graph ()
 
 ## Data
 
-The employed datasets are available under The Open Data Commons Attribution License (ODC-By) v1.0.
+It ran for both real and synthetic data.
+The real data is available under The Open Data Commons Attribution License (ODC-By) v1.0.
 
 Schlueter, J. - P., McIntosh, M., Hattab, G., Nattkemper, T. W., and Becker, A. (2015). Phase Contrast and Fluorescence Bacterial Time-Lapse Microscopy Image Data. Bielefeld University. [doi:10.4119/unibi/2777409](http://doi.org/10.4119/unibi/2777409).
+
+The synthetic data can be found under ...
+
+## Particle diameter estimation
+
 
 ## Dependencies
 
 For better reproducibility the versions that were used for development are mentioned in parentheses.
 
 * Python (2.7.11)
-* matplotlib (1.5.1+1759)
-* OpenCV (2.4.12)
+* OpenCV (3.1.0-dev)
 * pyqtgraph (0.9.10)
 * trackpy (u'0.3.0rc1')
-* pims (0.2.2)
+* networkx (1.9.1)
+* Scipy (0.16.0)
 * pandas (0.16.2)
+* json (2.0.9)
 
 ## Usage
 
 ```bash
 # Set file permissions
-$ chmod +x seevis.py 
+$ chmod +x cycasp.py 
 
-# Run SEEVIS on a folder containing all image files 
+# Run CYCASP on a folder containing all image files 
 # Formatted by channel : red, green, blue as c2, c3, c4 respectively for every time point
-$ ./seevis.py -i img_directory/
+$ ./cycasp.py -i img_directory/
 
-# Or on a CSV file containing feature positions
-$ ./seevis.py -f filename.csv -s 2
+# Or on a CSV file containing particle positions and trajectory IDs 
+# with default thresholds for the fives metrics (euclidean distance, channel specifc differences and time window)
+$ ./cycasp.py -f filename.csv
 
 #  -h, --help            show this help message and exit
 #  -v, --version         show program's version number and exit
 #  -i, --input           run SEEVIS on the supplied directory
-#  -f, --file            run the Visualisation of SEEVIS
-#  -s                    run scheme (or colour coding) ranging from 1 to 4 (default is 1)
+#  -f, --file            run only step 3 of the method given as a CSV file
+#  -d                    diameter estimate (default 11)
+#  -e                    euclidean distance (default 10, cf. section above)
+#  -r -g -b              channel specific differences (default 50 for each)
+#  -t                    time window for merges (default 10 time points)
+
 ```
 
 ## License
 ```
 The MIT License (MIT)
 
-Copyright (c) 2016 Georges Hattab
+Copyright (c) Georges Hattab
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
