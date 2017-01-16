@@ -1,4 +1,4 @@
-# CYCASP, ColonY Cell feAture SPace
+# CYCASP, understanding ColonY growth and Cell Affect in SPatiotemporal experiments
 
 abstract
 
