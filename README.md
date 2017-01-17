@@ -37,7 +37,7 @@ $ ./cycasp.py -f filename.csv
 
 #  -h, --help            show this help message and exit
 #  -v, --version         show program's version number and exit
-#  -i, --input           run SEEVIS on the supplied directory
+#  -i, --input           run CYCASP on the supplied directory
 #  -f, --file            run only step 3 of the method given as a CSV file
 #  -d                    diameter estimate (default 11)
 #  -e                    euclidean distance (default 10, cf. section above)
