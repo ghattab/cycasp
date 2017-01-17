@@ -18,29 +18,29 @@ def main(argv=None):
     Handles the parsing of arguments
     '''
     parser = SeevisParser(
-        prog='SEEVIS',
+        prog='CYCASP',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description='''
-----------------------------------------------
-SEEVIS - (S)egmentation-Fr(EE)(VIS)ualisation
-----------------------------------------------
-Copyright (c) 2016 Georges Hattab
+------
+CYCASP
+------
+Copyright (c) 2017 Georges Hattab
 Under the MIT License (MIT) ''',
         epilog='''
 Usage examples:
-./seevis.py -i img_directory/
-./seevis.py -f filename.csv -s 2
+./cycasp.py -i img_directory/
+./cycasp.py -f filename.csv -s 2
             ''')
 
     # Arguments to be handled
     parser.add_argument('-v', '--version', action='version', version='%(prog)s 1.0\n')
 
     parser.add_argument('-i', '--input', default=None, metavar='dir',\
-                        help='run SEEVIS on the supplied directory',\
+                        help='run CYCASP on the supplied directory',\
                         type=lambda x: arghelper.inputdir(parser, x))
 
     parser.add_argument('-f', '--file', default=None,\
-                        help='run the Visualisation of SEEVIS',
+                        help='run CYCASP on tracking results',
                         type=inputfile)
 
     parser.add_argument('-s', \
