@@ -1,27 +1,26 @@
 # CYCASP, understanding ColonY growth and Cell Affect in SPatiotemporal experiments
 
-abstract
 
-CYCASP comprises three steps:
-1. preprocessing (state of the art image preprocessing methods)
+
+CYCASP employs two novel abstractions applied to the domain of microfluidics. 
+It is a three steps framework comprising:
+
+1. preprocessing (denoising, contrast enhancement, etc)
 2. particle (finding, tracking, etc)
-3. patch lineage graph ()
+3. patch lineage graphs (finding, propogating, splitting, merging)
+
 
 ## Data
 
-It ran for both real and synthetic data.
 The real data is available under The Open Data Commons Attribution License (ODC-By) v1.0.
 
 Schlueter, J. - P., McIntosh, M., Hattab, G., Nattkemper, T. W., and Becker, A. (2015). Phase Contrast and Fluorescence Bacterial Time-Lapse Microscopy Image Data. Bielefeld University. [doi:10.4119/unibi/2777409](http://doi.org/10.4119/unibi/2777409).
 
-The synthetic data can be found under ...
-
-## Particle diameter estimation
+The synthetic data is not yet published.
 
 
 
-
-## Usage
+## Usage examples
 
 ```bash
 # Set file permissions
@@ -29,11 +28,11 @@ $ chmod +x cycasp.py
 
 # Run CYCASP on a folder containing all image files 
 # Formatted by channel : red, green, blue as c2, c3, c4 respectively for every time point
-$ ./cycasp.py -i img_directory/
+$ ./cycasp.py -i img_directory/ -g 100
 
 # Or on a CSV file containing particle positions and trajectory IDs 
 # with default thresholds for the fives metrics (euclidean distance, channel specifc differences and time window)
-$ ./cycasp.py -f filename.csv
+$ ./cycasp.py -f filename.csv -t 2
 
 #  -h, --help            show this help message and exit
 #  -v, --version         show program's version number and exit
@@ -51,6 +50,7 @@ For better reproducibility the versions that were used for development are menti
 
 * Python (2.7.11)
 * OpenCV (3.1.0-dev)
+* pims (0.2.2)
 * pyqtgraph (0.9.10)
 * trackpy (u'0.3.0rc1')
 * networkx (1.9.1)
