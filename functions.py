@@ -398,7 +398,7 @@ def init(d, tm, distu, ru, gu, bu):
     print "[Init.] Graph with %s nodes" %(tm+1)
     G = nx.path_graph(tm+1) # create a graph with number of time points + 1
     # filter all interactions by user values
-    l, rest = filter(res, tm, distu, ru, gu, bu)
+    l, rest = pfilter(res, tm, distu, ru, gu, bu)
     #l = [['a','b','c'],['b','d','e'],['k'],['o','p'],['e','f'],['p','a'],['d','g']]
     ls = graphcc(l) #returns a sorted connected components' list of particle ids
     pvl = patch_encode(d, ls, 0)
@@ -471,7 +471,7 @@ def increment(G, d, tm, distu, ru, gu, bu):
             if empty(tmp_res):
                 continue
             else:
-                tmp_res, rest = filter(tmp_res, i, distu, ru, gu, bu)
+                tmp_res, rest = pfilter(tmp_res, i, distu, ru, gu, bu)
                 plist = graphcc(tmp_res)
                 # 4 possibilities plist (combinations) and rest (singleton patches)
                 if not plist and not rest:
@@ -609,7 +609,7 @@ def scombine(sele):
     return res
 
 
-def filter(res, t, distu, ru, gu, bu):
+def pfilter(res, t, distu, ru, gu, bu):
     ''' Filters dataframe res - output of combine() - given user parameters
         Args    res dataframe
                 distu, ru, gu and bu are user set, a default preset is given
@@ -709,7 +709,7 @@ def verify_patch(d, ls, distu, ru, gu, bu):
             res = combine(j, view)
             if len(res)==1: continue # if 1 particle do increment
             # filter by given parameters returning main list l and o other singletons
-            l, o = filter(res, j, distu, ru, gu, bu)
+            l, o = pfilter(res, j, distu, ru, gu, bu)
             # connected components on main result
             r = graphcc(l)
             if empty(r) or len(r)==1:
@@ -903,7 +903,7 @@ def find_merges(G, d, tm, distu, ru, gu, bu):
                     # combine particle pairs present in selection
                     res = scombine(sele)
                     # filter all interactions by user values
-                    l, rest = filter(res, tm, distu, ru, gu, bu)
+                    l, rest = pfilter(res, tm, distu, ru, gu, bu)
                     # connected components
                     ls = graphcc(l)
                     # if merge possible put particles in ordered candidates list
@@ -954,7 +954,7 @@ def post_merge(d, G, l):
 
 
 def update_df_postmerge(d, ll):
-    ## patch encode into dataframe
+    ''' patch encode into dataframe'''
     for i in range(len(ll)):
         # select all rows in which ll[i] patch ids exist
         sele = d['n'].isin(ll[i])
@@ -965,7 +965,7 @@ def update_df_postmerge(d, ll):
 
 
 def update_graph_postmerge(d, G, l):
-    # recover all nodes that contain patch ids 1 and 3
+    ''' recover all nodes that contain patch ids 1 and 3'''
     part = nx.get_node_attributes(G, 'p')
     k = part.keys()
     for j in range(len(l)):
