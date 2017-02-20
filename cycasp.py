@@ -7,7 +7,8 @@ import os, sys
 from functions import *
 
 
-class CycaspParser(argparse.ArgumentParser):
+class CycaspParser(argparse.ArgumentParser):    
+    ''' Parser class '''
     def error(self, message):
         sys.stderr.write('> error: %s\n' % message)
         self.print_help()
@@ -15,9 +16,7 @@ class CycaspParser(argparse.ArgumentParser):
 
 
 def main(argv=None):
-    '''
-    Handles the parsing of arguments
-    '''
+    ''' Handles the parsing of arguments '''
     parser = CycaspParser(
         prog='CYCASP',
         formatter_class=argparse.RawDescriptionHelpFormatter,
