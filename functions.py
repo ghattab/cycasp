@@ -482,7 +482,7 @@ def increment(G, d, tm, distu, ru, gu, bu):
                     verify_patch(d, plist, distu, ru, gu, bu)
                     coords, bounds, withins = get_all(d, i , plist)
                     m = max(flatten([G.node[n]['id'] for n in G.nodes()]))
-                    patchids = patch_encode(d, plist, m)
+                    patchids = patch_encode_t(d, plist, m)
                     pb = get_pids(d, i, bounds); pw = get_pids(d, i, withins)
                     G.add_node(i, id=patchids, p=plist, c=coords, b=bounds,\
                                pb=pb, w=withins, pw=pw)
@@ -490,7 +490,7 @@ def increment(G, d, tm, distu, ru, gu, bu):
                 elif not plist and rest:
                     coords1, bounds1, withins1 = get_all(d, i , rest)
                     m = max(flatten([G.node[n]['id'] for n in G.nodes()]))
-                    patchids1 = patch_encode(d, rest, m)
+                    patchids1 = patch_encode_t(d, rest, m)
                     G.add_node(i, id=patchids1, p=rest, c=coords1, b=bounds1,\
                                pb=rest, w=withins1, pw=rest)
 
@@ -500,9 +500,9 @@ def increment(G, d, tm, distu, ru, gu, bu):
                     coords1, bounds1, withins1 = get_all(d, i , rest)
                     # manage max patch ids value on the fly
                     m = max(flatten([G.node[n]['id'] for n in G.nodes()]))
-                    patchids = patch_encode(d, plist, m)
+                    patchids = patch_encode_t(d, plist, m)
                     m = max(patchids)
-                    patchids1 = patch_encode(d, rest, m)
+                    patchids1 = patch_encode_t(d, rest, m)
                     # recover particle ids given a list of coord
                     patchids.extend(patchids1); coords.extend(coords1);
                     bounds.extend(bounds1); withins.extend(withins1);
@@ -686,6 +686,24 @@ def patch_encode(df, l, v):
     return vlist
 
 
+def patch_encode_t(df, l, v, t):
+    ''' Encodes patch ids to the dataframe excluding all time points after t
+        Args    df dataframe
+        l unflattened list of interacting particle ids
+        v value of of the patch id
+        Returns vlist unique patch ids used in column 'n' of main dataframe
+        '''
+    vlist = []
+    for i in range(len(l)):
+        # select particles in each patch
+        sele = (df['particle'].isin(l[i])) & (df['z']<=t)
+        # encode patch ids to 'n' column
+        df.set_value(sele, 'n', v+i+1)
+        # recover patch ids for later usage
+        vlist.append(v+i+1)
+    return vlist
+
+
 def verify_patch(d, ls, distu, ru, gu, bu):
     ''' Verifies whether a patch can be divided given user parameters
         Args    d dataframe
@@ -857,6 +875,7 @@ def update_graph(d, G):
         %(max(flatten([G.node[n]['id'] for n in G.nodes()])), max(G.nodes()))
 
 
+
 def find_merges(G, d, tm, distu, ru, gu, bu):
     ''' Finds all possible merges between all pair of non singleton patches
         Args    G graph 
@@ -940,7 +959,9 @@ def true_merge(candidates, limit):
         for k, g in groupby(enumerate(row['occ']), lambda ix : ix[0] - ix[1]):
             j = map(itemgetter(1), g)
             if len(j) >= limit:
-                l.append([row['i1'], row['i2']])
+                mn = min(td[(td.i1==row['i1']) & (td.i2==row['i2'])].t)
+                mx = max(td[(td.i1==row['i1']) & (td.i2==row['i2'])].t)
+                l.append([row['i1'], row['i2'], mn, mx])
     return l
 
 
@@ -958,9 +979,9 @@ def update_df_postmerge(d, ll):
     ''' patch encode into dataframe'''
     for i in range(len(ll)):
         # select all rows in which ll[i] patch ids exist
-        sele = d['n'].isin(ll[i])
+        sele = (d['n'].isin(l[i][:2]) & (df['z']>=l[i][2]) & (df['z']<=l[i][3]))
         # flip 3 to 1 (smaller patch ids wins since observed early on)
-        newpid = min(ll[i])
+                newpid = min(ll[i][:2]])
         d.set_value(sele, 'n', newpid)
     return d
 
