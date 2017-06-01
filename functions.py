@@ -979,9 +979,9 @@ def update_df_postmerge(d, ll):
     ''' patch encode into dataframe'''
     for i in range(len(ll)):
         # select all rows in which ll[i] patch ids exist
-        sele = (d['n'].isin(l[i][:2]) & (df['z']>=l[i][2]) & (df['z']<=l[i][3]))
+        sele = (d['n'].isin(ll[i][:2]) & (df['z']>=ll[i][2]) & (df['z']<=ll[i][3]))
         # flip 3 to 1 (smaller patch ids wins since observed early on)
-                newpid = min(ll[i][:2]])
+        newpid = min(ll[i][:2])
         d.set_value(sele, 'n', newpid)
     return d
 
@@ -1052,7 +1052,6 @@ def export_data(d, G, path):
         out.write(json.dumps(json_graph.node_link_data(G)))
     
     print "Dataframe summary:\n", data.describe()
-
     file_name = "../particles_"+o+".csv"; print "Exporting %s" %(file_name)
     data.to_csv(file_name, sep='\t', encoding='utf-8')
 
