@@ -6,7 +6,7 @@ CYCASP employs two novel abstractions applied to the domain of microfluidics.
 It is a three steps framework comprising:
 
 1. preprocessing (denoising, contrast enhancement, etc)
-2. particle (finding, tracking, etc)
+2. particle (finding, tracking, linking, etc)
 3. patch lineage graphs (finding, propogating, splitting, merging)
 
 
