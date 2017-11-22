@@ -1,4 +1,4 @@
-# CYCASP, understanding ColonY growth and Cell Affect in SPatiotemporal experiments
+# CYCASP, understanding ColonY growth and Cell Attributes in SPatiotemporal experiments
 
 
 
