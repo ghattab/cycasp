@@ -58,6 +58,19 @@ For better reproducibility the versions that were used for development are menti
 * pandas (0.16.2)
 * json (2.0.9)
 
+## Citation
+If you use this software, please consider citing the following paper: Hattab, G., Wiesmann, V., Becker, A., Munzner, T. and Nattkemper, T.W., 2018. a novel Methodology for characterizing cell subpopulations in automated Time-lapse Microscopy. Frontiers in bioengineering and biotechnology, 6, p.17.
+```
+@Article{hattab18cycasp,
+   Author="Hattab, G.  and Wiesmann, V.  and Becker, A.  and Munzner, T.  and Nattkemper, T. W. ",
+   Title="{{A} {N}ovel {M}ethodology for {C}haracterizing {C}ell {S}ubpopulations in {A}utomated {T}ime-lapse {M}icroscopy}",
+   Journal="Front Bioeng Biotechnol",
+   Year="2018",
+   Volume="6",
+   Pages="17"
+}
+```
+
 ## License
 ```
 The MIT License (MIT)
